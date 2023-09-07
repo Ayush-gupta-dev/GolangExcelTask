@@ -17,9 +17,33 @@ type Student struct {
 
 // get email and branch from ID
 func getEmailAndBranch(bitsID string) (email string, branch string) {
-	// i currently dont know the logic how to calculate for dual, and what is AB, so just appending with @pilani.com, for now
-	email = bitsID + "@pilani-dummy.com"
-	return email, "Computer Science"
+	// mapping ID digit:
+	mapping := map[string]string{
+		"A1": "chemical",
+		"A5": "B.Pharma",
+		"A7": "CS",
+		"A3": "EE",
+		"A4": "mechanical",
+		"A8": "EnI",
+		"A2": "civil",
+		"AB": "Manufacturing",
+		"B1": "Msc Bio",
+		"B2": "Chem",
+		"B3": "Eco",
+		"B4": "Mathematics",
+		"B5": "Physics",
+		"D2": "General Studies",
+		"AA": "ECE",
+	}
+	trimmedBranch := bitsID[4:]
+	digits := trimmedBranch[:2]
+	//fmt.Println(digits)
+	email = bitsID + "@bitspilani.ac.in"
+	if value, ok := mapping[digits]; ok {
+		return email, value
+	} else {
+		return email, "unknown"
+	}
 }
 
 func main() {
@@ -84,6 +108,6 @@ func main() {
 		}
 	}
 	writer.Flush()
-	fmt.Println("successfully craeted csv file")
+	fmt.Println("successfully created csv file")
 
 }
